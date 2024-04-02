@@ -1,18 +1,16 @@
 package at.fhv.lab1.eventbus.events;
 
-public class Event {
 
-    private String customer;
+import java.time.LocalDateTime;
+import java.util.UUID;
+
+public abstract class Event{
+
     private long timestamp;
     private String content;
+    public final UUID id = UUID.randomUUID();
+    public final LocalDateTime created = LocalDateTime.now();
 
-    public String getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(String customer) {
-        this.customer = customer;
-    }
 
     public long getTimestamp() {
         return timestamp;
@@ -33,7 +31,6 @@ public class Event {
     @Override
     public String toString() {
         return "Event{" +
-                "customer='" + customer + '\'' +
                 ", timestamp=" + timestamp +
                 ", content='" + content + '\'' +
                 '}';
