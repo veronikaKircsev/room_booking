@@ -14,6 +14,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.stream.Stream;
 
 
@@ -24,7 +25,6 @@ public class CommandClientHandler {
     private final CommandHandler handler;
     private final RoomRepository roomRepository;
     private final EventPublisher publisher;
-    private boolean success;
 
     @Autowired
     public CommandClientHandler(CommandHandler handler, RoomRepository roomRepository, EventPublisher publisher) {
@@ -39,7 +39,10 @@ public class CommandClientHandler {
          if (guest!=null) {
              CreateCustomerEvent event = new CreateCustomerEvent();
              event.setContent("createCustomer");
-             event.setCustomer(guest.toString());
+             event.setName(command.getName());
+             event.setAddress(command.getAddress());
+             event.setBirthDate(command.getBirthDate());
+             event.setId(guest.getId());
              event.setTimestamp(System.currentTimeMillis());
              publisher.publishEvent(event);
          }
@@ -59,13 +62,16 @@ public class CommandClientHandler {
     @PostMapping("/bookRoom")
     public void bookRoom(@RequestBody BookRoom command) {
         int result = handler.bookRoom(command);
-        if (result != 0) {
+        if (result != 0 &&
+                command.getNumberOfGuests() <= roomRepository.getRoomByNumber(command.getRoomNumber()).getMaxGuestCapacity()) {
             BookRoomEvent event = new BookRoomEvent();
             event.setContent("bookRoom");
             event.setBookingID(result);
             event.setCustomer(command.getGuest().toString());
-            event.getRoomNumber(command.getRoomNumber());
-            event.getDuration(command.getNights());
+            event.setRoomNumber(command.getRoomNumber());
+            event.setDuration(command.getNights());
+            event.setStartDate(command.getStart());
+            event.setTotalNumberOfGuest(command.getNumberOfGuests());
             event.setRoomNumber(command.getRoomNumber());
             event.setTimestamp(System.currentTimeMillis());
             publisher.publishEvent(event);

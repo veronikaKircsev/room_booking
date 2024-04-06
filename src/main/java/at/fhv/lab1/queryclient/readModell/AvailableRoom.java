@@ -62,6 +62,20 @@ public class AvailableRoom {
             return false;
     }
 
+    public HashMap<LocalDate, Boolean> getAvailable() {
+        return available;
+    }
 
+    public void setAvailable(HashMap<LocalDate, Boolean> available) {
+        this.available = available;
+    }
 
+    @Override
+    public String toString() {
+        return "AvailableRoom{" +
+                "roomNumber=" + roomNumber +
+                ", maxCapacity=" + maxCapacity +
+                ", available=" + available +
+                '}';
+    }
 }

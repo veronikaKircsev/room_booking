@@ -10,6 +10,7 @@ public class BookRoom {
     private LocalDate start;
     private int nights;
     private Guest guest;
+    private int numberOfGuests;
 
     public int getRoomNumber() {
         return roomNumber;
@@ -43,4 +44,11 @@ public class BookRoom {
         this.guest = guest;
     }
 
+    public int getNumberOfGuests() {
+        return numberOfGuests;
+    }
+
+    public void setNumberOfGuests(int numberOfGuests) {
+        this.numberOfGuests = numberOfGuests;
+    }
 }
