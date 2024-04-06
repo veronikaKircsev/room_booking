@@ -2,7 +2,7 @@ package at.fhv.lab1.queryclient.projection;
 
 import at.fhv.lab1.queryclient.readModell.Guest;
 import at.fhv.lab1.queryclient.readQuery.GetCustomers;
-import at.fhv.lab1.queryclient.readRepository.GuestRepository;
+import at.fhv.lab1.queryclient.readRepository.GuestReadRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,10 +10,10 @@ import java.util.ArrayList;
 
 @Service
 public class GuestProjection {
-    private GuestRepository repository;
+    private GuestReadRepository repository;
 
     @Autowired
-    public GuestProjection(GuestRepository repository) {
+    public GuestProjection(GuestReadRepository repository) {
         this.repository = repository;
     }
 

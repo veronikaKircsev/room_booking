@@ -5,7 +5,6 @@ import at.fhv.lab1.commandclient.command.CreateCustomer;
 import at.fhv.lab1.commandclient.domainRepositories.GuestRepository;
 import at.fhv.lab1.commandclient.writeModell.Guest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;;
 
 @Service
