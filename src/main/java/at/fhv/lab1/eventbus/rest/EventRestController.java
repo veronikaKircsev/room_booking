@@ -19,21 +19,18 @@ public class EventRestController {
 
     @PostMapping(value = "/bookRoomEvent", consumes = "application/json")
     public boolean addEvent(@RequestBody BookRoomEvent event) {
-        // TODO: process event in repository
         repository.processEvent(event);
         return true;
     }
 
     @PostMapping(value = "/cancelBookingEvent", consumes = "application/json")
     public boolean addEvent(@RequestBody CancelBookingEvent event) {
-        // TODO: process event in repository
         repository.processEvent(event);
         return true;
     }
 
     @PostMapping(value = "/createCustomerEvent", consumes = "application/json")
     public boolean addEvent(@RequestBody CreateCustomerEvent event) {
-        // TODO: process event in repository
         repository.processEvent(event);
         return true;
     }

@@ -1,6 +1,5 @@
 package at.fhv.lab1.eventbus;
 
-import jdk.jfr.Category;
 import org.springframework.boot.web.server.ConfigurableWebServerFactory;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.stereotype.Component;

@@ -38,7 +38,7 @@ public class CommandClientHandler {
          Guest guest = handler.createCustomer(command);
          if (guest!=null) {
              CreateCustomerEvent event = new CreateCustomerEvent();
-             event.setContent("This is the content!");
+             event.setContent("createCustomer");
              event.setCustomer(guest.toString());
              event.setTimestamp(System.currentTimeMillis());
              publisher.publishEvent(event);
@@ -49,7 +49,7 @@ public class CommandClientHandler {
     public void cancelBooking(@RequestBody CancelBooking command) {
         if (handler.cancelBooking(command)) {
             CancelBookingEvent event = new CancelBookingEvent();
-            event.setContent("This is the content!");
+            event.setContent("cancelBooking");
             event.setReservationNumber(command.getReservationNumber());
             event.setTimestamp(System.currentTimeMillis());
             publisher.publishEvent(event);
@@ -61,7 +61,7 @@ public class CommandClientHandler {
         int result = handler.bookRoom(command);
         if (result != 0) {
             BookRoomEvent event = new BookRoomEvent();
-            event.setContent("This is the content!");
+            event.setContent("bookRoom");
             event.setBookingID(result);
             event.setCustomer(command.getGuest().toString());
             event.getRoomNumber(command.getRoomNumber());
