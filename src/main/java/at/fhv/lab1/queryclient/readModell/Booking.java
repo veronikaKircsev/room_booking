@@ -1,11 +1,13 @@
 package at.fhv.lab1.queryclient.readModell;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.chrono.ChronoLocalDate;
 
 public class Booking {
 
     private int roomNumber;
-    private LocalDateTime startDate;
+    private LocalDate startDate;
     private int nights;
     private int totalNumberOfGuests;
     private String guestName;
@@ -27,12 +29,8 @@ public class Booking {
     }
 
 
-    public Booking(int roomNumber, LocalDateTime startDate, int nights, int totalNumberOfGuests, String guestName) {
-        this.roomNumber = roomNumber;
-        this.startDate = startDate;
-        this.nights = nights;
-        this.totalNumberOfGuests = totalNumberOfGuests;
-        this.guestName = guestName;
+    public Booking() {
+
     }
 
     public int getRoomNumber() {
@@ -43,11 +41,11 @@ public class Booking {
         this.roomNumber = roomNumber;
     }
 
-    public LocalDateTime getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(LocalDateTime startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
@@ -59,15 +57,25 @@ public class Booking {
         this.nights = nights;
     }
 
-    public LocalDateTime getEndDate() {
+    public LocalDate getEndDate() {
         return startDate.plusDays(nights);
     }
 
     public boolean isBooked(LocalDateTime day){
-        if(startDate.isBefore(day) && startDate.plusDays(nights).isAfter(day)){
+        if(startDate.isBefore(ChronoLocalDate.from(day)) && startDate.plusDays(nights).isAfter(ChronoLocalDate.from(day))){
             return true;
         }
         return false;
     }
 
+    @Override
+    public String toString() {
+        return "Booking{" +
+                "roomNumber=" + roomNumber +
+                ", startDate=" + startDate +
+                ", nights=" + nights +
+                ", totalNumberOfGuests=" + totalNumberOfGuests +
+                ", guestName='" + guestName + '\'' +
+                '}';
+    }
 }

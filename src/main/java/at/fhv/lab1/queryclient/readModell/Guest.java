@@ -1,18 +1,16 @@
 package at.fhv.lab1.queryclient.readModell;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class Guest {
 
     private int id;
     private String name;
     private String address;
-    private LocalDateTime birthDate;
+    private LocalDate birthDate;
 
-    public Guest(String name, String address, LocalDateTime birthday) {
-        this.name = name;
-        this.address = address;
-        this.birthDate = birthday;
+    public Guest() {
+
     }
 
     public int getId() {
@@ -39,11 +37,21 @@ public class Guest {
         this.address = address;
     }
 
-    public LocalDateTime getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(LocalDateTime birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
+    }
+
+    @Override
+    public String toString() {
+        return "Guest{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", birthDate=" + birthDate +
+                '}';
     }
 }

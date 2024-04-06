@@ -1,11 +1,15 @@
 package at.fhv.lab1.eventbus.events;
 
+import java.time.LocalDate;
+
 public class BookRoomEvent extends Event{
 
     private int bookingID;
     private String customer;
     private int roomNumber;
+    private LocalDate startDate;
     private int duration;
+    private int totalNumberOfGuest;
 
 
     public int getBookingID() {
@@ -24,7 +28,7 @@ public class BookRoomEvent extends Event{
         this.customer = customer;
     }
 
-    public int getRoomNumber(int roomNumber) {
+    public int getRoomNumber() {
         return this.roomNumber;
     }
 
@@ -32,12 +36,28 @@ public class BookRoomEvent extends Event{
         this.roomNumber = roomNumber;
     }
 
-    public int getDuration(int nights) {
+    public int getDuration() {
         return duration;
     }
 
     public void setDuration(int duration) {
         this.duration = duration;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
+    public int getTotalNumberOfGuest() {
+        return totalNumberOfGuest;
+    }
+
+    public void setTotalNumberOfGuest(int totalNumberOfGuest) {
+        this.totalNumberOfGuest = totalNumberOfGuest;
     }
 
     @Override

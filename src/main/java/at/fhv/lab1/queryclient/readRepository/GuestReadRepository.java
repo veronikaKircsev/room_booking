@@ -1,7 +1,6 @@
 package at.fhv.lab1.queryclient.readRepository;
 
 import at.fhv.lab1.queryclient.readModell.Guest;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -13,7 +12,7 @@ public class GuestReadRepository {
 
     private Map<Integer, Guest> guests =    new HashMap<>();
 
-    private void saveGuests(Guest guest) {
+    public void save(Guest guest) {
         guests.put(guest.getId(), guest);
     }
 
