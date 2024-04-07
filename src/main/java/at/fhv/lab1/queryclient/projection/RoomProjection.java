@@ -37,6 +37,7 @@ public class RoomProjection {
         booking.setNights(event.getDuration());
         booking.setTotalNumberOfGuests(event.getTotalNumberOfGuest());
         booking.setGuestName(event.getCustomer());
+        booking.setBookingId(event.getBookingID());
         bookingRepository.save(booking);
         availableRoomRepository.setRoomBooked(event.getRoomNumber(),event.getStartDate(),event.getDuration());
     }

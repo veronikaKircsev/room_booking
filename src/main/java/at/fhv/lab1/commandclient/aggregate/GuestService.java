@@ -1,6 +1,7 @@
 package at.fhv.lab1.commandclient.aggregate;
 
 
+import at.fhv.lab1.commandclient.command.BookRoom;
 import at.fhv.lab1.commandclient.command.CreateCustomer;
 import at.fhv.lab1.commandclient.domainRepositories.GuestRepository;
 import at.fhv.lab1.commandclient.writeModell.Guest;
@@ -18,13 +19,20 @@ public class GuestService {
     }
 
 
-    public Guest createCustomer(CreateCustomer query) {
-        Guest guest = new Guest(query.getName(), query.getAddress(),
-                query.getBirthDate());
-        if (!guestRepository.existsGuest(guest)) {
+    public Guest createCustomer(CreateCustomer command) {
+        Guest guest = new Guest(command.getName(), command.getAddress(),
+                command.getBirthDate());
+        if (guestRepository.existsGuest(guest) == null) {
             guestRepository.save(guest);
             return guest;
         }
-        return null;
+        return guestRepository.existsGuest(guest);
     }
+
+    public boolean isExists(BookRoom command) {
+        Guest guest = new Guest(command.getName(), command.getAddress(),
+                command.getBirthDate());
+        return guestRepository.existsGuest(guest) == null;
+    }
+
 }

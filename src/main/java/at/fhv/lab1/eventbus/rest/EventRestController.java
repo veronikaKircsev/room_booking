@@ -4,7 +4,6 @@ import at.fhv.lab1.eventbus.EventRepository;
 import at.fhv.lab1.eventbus.events.BookRoomEvent;
 import at.fhv.lab1.eventbus.events.CancelBookingEvent;
 import at.fhv.lab1.eventbus.events.CreateCustomerEvent;
-import at.fhv.lab1.eventbus.events.Event;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +12,7 @@ public class EventRestController {
 
     private final EventRepository repository;
 
+    @Autowired
     public EventRestController(EventRepository repository) {
         this.repository = repository;
     }

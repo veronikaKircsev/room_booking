@@ -17,14 +17,14 @@ public class ReservationService {
         this.repository = repository;
     }
 
-    public int bookRoom(BookRoom command) {
+    public Reservation bookRoom(BookRoom command, int id) {
         Reservation reservation = new Reservation(command.getRoomNumber(),
-                command.getGuest().getId(), command.getStart(), command.getNights());
+                id, command.getStart(), command.getNights());
             if (!repository.isBooked(reservation)) {
                 repository.save(reservation);
-                return reservation.getId();
+                return reservation;
             }
-        return 0;
+        return null;
     }
 
     public boolean cancelBooking(CancelBooking command) {

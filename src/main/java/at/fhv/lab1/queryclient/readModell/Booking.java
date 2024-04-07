@@ -6,6 +6,7 @@ import java.time.chrono.ChronoLocalDate;
 
 public class Booking {
 
+    private int bookingId;
     private int roomNumber;
     private LocalDate startDate;
     private int nights;
@@ -68,10 +69,19 @@ public class Booking {
         return false;
     }
 
+    public int getBookingId() {
+        return bookingId;
+    }
+
+    public void setBookingId(int bookingId) {
+        this.bookingId = bookingId;
+    }
+
     @Override
     public String toString() {
         return "Booking{" +
-                "roomNumber=" + roomNumber +
+                "bookingId=" + bookingId +
+                ", roomNumber=" + roomNumber +
                 ", startDate=" + startDate +
                 ", nights=" + nights +
                 ", totalNumberOfGuests=" + totalNumberOfGuests +

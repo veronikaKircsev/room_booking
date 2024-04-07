@@ -1,7 +1,5 @@
 package at.fhv.lab1.commandclient.command;
 
-import at.fhv.lab1.commandclient.writeModell.Guest;
-
 import java.time.LocalDate;
 
 public class BookRoom {
@@ -9,8 +7,10 @@ public class BookRoom {
     private int roomNumber;
     private LocalDate start;
     private int nights;
-    private Guest guest;
     private int numberOfGuests;
+    private String name;
+    private String address;
+    private LocalDate birthDate;
 
     public int getRoomNumber() {
         return roomNumber;
@@ -36,12 +36,28 @@ public class BookRoom {
         this.nights = nights;
     }
 
-    public Guest getGuest() {
-        return guest;
+    public String getName() {
+        return name;
     }
 
-    public void setGuest(Guest guest) {
-        this.guest = guest;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
     }
 
     public int getNumberOfGuests() {

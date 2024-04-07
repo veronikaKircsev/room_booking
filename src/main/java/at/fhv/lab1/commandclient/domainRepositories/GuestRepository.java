@@ -14,6 +14,7 @@ public class GuestRepository {
 
     public boolean save(Guest guest) {
         guest.setId(++counter);
+        System.out.println(guest.getId());
         guestList.put(counter, guest);
         return true;
     }
@@ -34,13 +35,13 @@ public class GuestRepository {
         return false;
     }
 
-    public boolean existsGuest(Guest guest) {
+    public Guest existsGuest(Guest guest) {
         for(Guest g: guestList.values()) {
             if(g.equals(guest)) {
-                return true;
+                return g;
             }
         }
-        return false;
+        return null;
     }
 
 

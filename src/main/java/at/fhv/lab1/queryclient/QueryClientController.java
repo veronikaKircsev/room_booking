@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @RestController
 public class QueryClientController {
@@ -17,10 +18,12 @@ public class QueryClientController {
 
 
     @GetMapping(value = "/getBooking")
-    public String getBookings(@RequestParam("start")LocalDate start,
-                              @RequestParam("end")LocalDate end) {
+    public String getBookings(@RequestParam("start")String start,
+                              @RequestParam("end")String end) {
+        LocalDate dateStart = LocalDate.parse(start, DateTimeFormatter.ofPattern("yyyy.MM.dd"));
+        LocalDate dateEnd = LocalDate.parse(end, DateTimeFormatter.ofPattern("yyyy.MM.dd"));
         System.out.println("Query received: " );
-        return projection.getBookings(start, end);
+        return projection.getBookings(dateStart, dateEnd);
     }
 
     @GetMapping(value = "/getCustomer/{name}")
@@ -35,10 +38,12 @@ public class QueryClientController {
     }
 
     @GetMapping(value = "/getFreeRooms")
-    public String getFreeRooms(@RequestParam("start")LocalDate start,
-                               @RequestParam("end")LocalDate end,
+    public String getFreeRooms(@RequestParam("start")String start,
+                               @RequestParam("end")String end,
                                @RequestParam("numberOfGuest") int numberOfGuest) {
+        LocalDate dateStart = LocalDate.parse(start, DateTimeFormatter.ofPattern("yyyy.MM.dd"));
+        LocalDate dateEnd = LocalDate.parse(end, DateTimeFormatter.ofPattern("yyyy.MM.dd"));
         System.out.println("Query received: ");
-        return projection.getFreeRooms(start, end, numberOfGuest);
+        return projection.getFreeRooms(dateStart, dateEnd, numberOfGuest);
     }
 }

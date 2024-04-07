@@ -42,4 +42,8 @@ public class AvailableRoomRepository {
         room.setAvailable(dates);
         rooms.put(room.getRoomNumber(), room);
     }
+
+    public void save(AvailableRoom room){
+        rooms.put(room.getRoomNumber(), room);
+    }
 }
