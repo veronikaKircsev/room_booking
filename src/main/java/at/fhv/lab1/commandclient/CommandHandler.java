@@ -6,6 +6,7 @@ import at.fhv.lab1.commandclient.command.BookRoom;
 import at.fhv.lab1.commandclient.command.CancelBooking;
 import at.fhv.lab1.commandclient.command.CreateCustomer;
 import at.fhv.lab1.commandclient.writeModell.Guest;
+import at.fhv.lab1.commandclient.writeModell.Reservation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -21,13 +22,14 @@ public class CommandHandler {
         this.reservationService = reservationService;
     }
 
-    public int bookRoom(BookRoom bookRoom) {
-            int booking = reservationService.bookRoom(bookRoom);
+    public Reservation bookRoom(BookRoom bookRoom) {
             CreateCustomer guest = new CreateCustomer();
-            guest.setName(bookRoom.getGuest().getName());
-            guest.setAddress(bookRoom.getGuest().getAddress());
-            guest.setBirthDate(bookRoom.getGuest().getBirthDate());
-            guestService.createCustomer(guest);
+            guest.setName(bookRoom.getName());
+            guest.setAddress(bookRoom.getAddress());
+            guest.setBirthDate(bookRoom.getBirthDate());
+        System.out.println(guest);
+            Guest guest1 = guestService.createCustomer(guest);
+            Reservation booking = reservationService.bookRoom(bookRoom, guest1.getId());
             return booking;
     }
 
@@ -39,5 +41,10 @@ public class CommandHandler {
     public Guest createCustomer(CreateCustomer createCustomer){
 
         return guestService.createCustomer(createCustomer);
+    }
+
+
+    public boolean existsGuest(BookRoom book){
+        return guestService.isExists(book);
     }
 }

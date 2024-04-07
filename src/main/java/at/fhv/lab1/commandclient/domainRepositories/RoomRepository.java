@@ -26,7 +26,6 @@ public class RoomRepository {
 
     public Room getRoomByNumber(int number) {
         if (number != 0 && rooms.containsKey(number)) {
-            rooms.remove(number);
             return rooms.get(number);
         }
         return new Room();

@@ -2,7 +2,6 @@ package at.fhv.lab1.queryclient.projection;
 
 import at.fhv.lab1.eventbus.events.CreateCustomerEvent;
 import at.fhv.lab1.queryclient.readModell.Guest;
-import at.fhv.lab1.queryclient.readQuery.GetCustomers;
 import at.fhv.lab1.queryclient.readRepository.GuestReadRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
