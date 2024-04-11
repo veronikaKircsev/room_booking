@@ -79,13 +79,14 @@ public class Booking {
 
     @Override
     public String toString() {
-        return "Booking{" +
-                "bookingId=" + bookingId +
-                ", roomNumber=" + roomNumber +
-                ", startDate=" + startDate +
-                ", nights=" + nights +
-                ", totalNumberOfGuests=" + totalNumberOfGuests +
-                ", guestName='" + guestName + '\'' +
+        return "{" +
+                "\"bookingId\":" + bookingId +
+                ", \"roomNumber\":" + roomNumber +
+                ", \"startDate\":\"" + startDate + "\"" +
+                ", \"nights\":" + nights +
+                ", \"totalNumberOfGuests\":" + totalNumberOfGuests +
+                ", \"guestName\":\"" + guestName + "\"" +
                 '}';
     }
+
 }
