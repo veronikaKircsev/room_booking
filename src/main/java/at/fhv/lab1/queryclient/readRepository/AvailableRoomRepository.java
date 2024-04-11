@@ -13,10 +13,10 @@ public class AvailableRoomRepository {
 
     private Map<Integer, AvailableRoom>rooms = new HashMap<>();
 
-    public ArrayList<AvailableRoom> getFreeRooms(LocalDate start, LocalDate end, Integer guestNumber) {
+    public ArrayList<AvailableRoom> getFreeRooms(LocalDate start, LocalDate end, Integer guestNumber, boolean withBalkony) {
         ArrayList<AvailableRoom> freeRoomNumbers = new ArrayList<>();
         for (AvailableRoom room : rooms.values()) {
-            if (room.isAvailable(start, end) && room.getMaxCapacity() >= guestNumber) {
+            if (room.isAvailable(start, end) && room.isWithBalcony() &&room.getMaxCapacity() >= guestNumber) {
                 freeRoomNumbers.add(room);
             }
 

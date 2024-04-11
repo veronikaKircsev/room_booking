@@ -11,7 +11,7 @@ public class AvailableRoom {
     private boolean withBalcony;
     private HashMap<LocalDate, Boolean> available = new HashMap<>();
 
-
+public boolean isWithBalcony(){return withBalcony;}
 
     public AvailableRoom(int roomNumber, int maxCapacity, boolean withBalcony) {
         LocalDate currentDate = LocalDate.now();
@@ -72,10 +72,11 @@ public class AvailableRoom {
 
     @Override
     public String toString() {
-        return "AvailableRoom{" +
-                "roomNumber=" + roomNumber +
-                ", maxCapacity=" + maxCapacity +
-                ", withBalcony=" + withBalcony +
-                '}';
+        return "{" +
+                "\"roomNumber\": " + roomNumber +
+                ", \"maxCapacity\": " + maxCapacity +
+                ", \"withBalcony\": " + withBalcony +
+                "}";
     }
+
 }

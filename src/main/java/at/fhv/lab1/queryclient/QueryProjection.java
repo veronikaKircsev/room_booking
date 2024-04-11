@@ -38,12 +38,16 @@ public class QueryProjection {
     public String arrayToString(ArrayList<Guest> guests) {
         StringBuilder sb = new StringBuilder();
         sb.append("[");
-        for (Guest guest : guests){
-            sb.append(guest.toString());
+        for (int i = 0; i < guests.size(); i++) {
+            sb.append(guests.get(i).toString());
+            if (i < guests.size() - 1) {
+                sb.append(", ");
+            }
         }
         sb.append("]");
         return sb.toString();
     }
+
 
     public String getBookings(LocalDate startDate, LocalDate endDate) {
         ArrayList<Booking> bookingList = (ArrayList<Booking>) roomProjection.getBooking(startDate, endDate);
@@ -60,8 +64,8 @@ public class QueryProjection {
 
     }
 
-    public String getFreeRooms(LocalDate start, LocalDate end, int numberOfGuest){
-        ArrayList<AvailableRoom> freeRooms = (ArrayList<AvailableRoom>) roomProjection.getFreeRooms(start, end, numberOfGuest);
+    public String getFreeRooms(LocalDate start, LocalDate end, int numberOfGuest, boolean withBalkony){
+        ArrayList<AvailableRoom> freeRooms = (ArrayList<AvailableRoom>) roomProjection.getFreeRooms(start, end, numberOfGuest, withBalkony);
         StringBuilder sb = new StringBuilder();
         sb.append("[");
         for (int i = 0; i < freeRooms.size(); i++) {

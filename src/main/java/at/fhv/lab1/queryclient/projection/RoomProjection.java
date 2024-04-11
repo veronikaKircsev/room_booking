@@ -26,8 +26,8 @@ public class RoomProjection {
             return bookingRepository.getBookings(start, end);
     }
 
-    public List<AvailableRoom> getFreeRooms(LocalDate start, LocalDate end, int numberOfGuest) {
-        return availableRoomRepository.getFreeRooms(start, end, numberOfGuest);
+    public List<AvailableRoom> getFreeRooms(LocalDate start, LocalDate end, int numberOfGuest, boolean withBalkony) {
+        return availableRoomRepository.getFreeRooms(start, end, numberOfGuest, withBalkony);
     }
 
     public void handle(BookRoomEvent event){

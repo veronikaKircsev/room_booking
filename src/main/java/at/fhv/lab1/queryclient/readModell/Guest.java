@@ -47,11 +47,12 @@ public class Guest {
 
     @Override
     public String toString() {
-        return "Guest{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", address='" + address + '\'' +
-                ", birthDate=" + birthDate +
-                '}';
+        return "{" +
+                "\"id\": " + id +
+                ", \"name\": \"" + name + "\"" +
+                ", \"address\": \"" + address + "\"" +
+                ", \"birthDate\": \"" + birthDate + "\"" +
+                "}";
     }
+
 }

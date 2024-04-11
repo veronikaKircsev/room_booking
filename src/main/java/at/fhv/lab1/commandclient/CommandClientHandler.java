@@ -33,6 +33,7 @@ public class CommandClientHandler {
         this.publisher = publisher;
     }
 
+    @CrossOrigin(origins = "http://localhost:5173")
     @PostMapping("/createCustomer")
     public void createCustomer(@RequestBody CreateCustomer command) {
          Guest guest = handler.createCustomer(command);
@@ -47,7 +48,7 @@ public class CommandClientHandler {
              publisher.publishEvent(event);
          }
     }
-
+    @CrossOrigin(origins = "http://localhost:5173")
     @PutMapping("/cancelBooking")
     public void cancelBooking(@RequestBody CancelBooking command) {
         if (handler.cancelBooking(command)) {
@@ -58,7 +59,7 @@ public class CommandClientHandler {
             publisher.publishEvent(event);
         }
     }
-
+    @CrossOrigin(origins = "http://localhost:5173")
     @PostMapping("/bookRoom")
     public void bookRoom(@RequestBody BookRoom command) {
         Reservation result = handler.bookRoom(command);

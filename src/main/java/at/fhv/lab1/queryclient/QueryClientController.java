@@ -16,8 +16,8 @@ public class QueryClientController {
         this.projection = projection;
     }
 
-
-    @GetMapping(value = "/getBooking")
+    @CrossOrigin(origins = "http://localhost:5173")
+    @GetMapping(value = "/getBookings")
     public String getBookings(@RequestParam("start")String start,
                               @RequestParam("end")String end) {
         LocalDate dateStart = LocalDate.parse(start, DateTimeFormatter.ofPattern("yyyy.MM.dd"));
@@ -25,25 +25,29 @@ public class QueryClientController {
         System.out.println("Query received: " );
         return projection.getBookings(dateStart, dateEnd);
     }
-
-    @GetMapping(value = "/getCustomer/{name}")
+    @CrossOrigin(origins = "http://localhost:5173")
+    @GetMapping(value = "/getCustomers/{name}")
     public String getCustomer(@PathVariable("name") String name ){
         System.out.println("Query received: ");
         return name!=null ? projection.getGuests(name): projection.getGuests();
     }
-    @GetMapping(value = "/getCustomer")
+    @CrossOrigin(origins = "http://localhost:5173")
+    @GetMapping(value = "/getCustomers")
     public String getCustomer(){
         System.out.println("Query received: ");
         return projection.getGuests();
     }
 
+    @CrossOrigin(origins = "http://localhost:5173")
     @GetMapping(value = "/getFreeRooms")
-    public String getFreeRooms(@RequestParam("start")String start,
-                               @RequestParam("end")String end,
-                               @RequestParam("numberOfGuest") int numberOfGuest) {
-        LocalDate dateStart = LocalDate.parse(start, DateTimeFormatter.ofPattern("yyyy.MM.dd"));
-        LocalDate dateEnd = LocalDate.parse(end, DateTimeFormatter.ofPattern("yyyy.MM.dd"));
+    public String getFreeRooms(@RequestParam("start") String start,
+                               @RequestParam("end") String end,
+                               @RequestParam("numberOfGuest") int numberOfGuest,
+                               @RequestParam("withBalcony") boolean withBalcony) {
+        LocalDate dateStart = LocalDate.parse(start, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        LocalDate dateEnd = LocalDate.parse(end, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         System.out.println("Query received: ");
-        return projection.getFreeRooms(dateStart, dateEnd, numberOfGuest);
+        return projection.getFreeRooms(dateStart, dateEnd, numberOfGuest, withBalcony);
     }
+
 }
