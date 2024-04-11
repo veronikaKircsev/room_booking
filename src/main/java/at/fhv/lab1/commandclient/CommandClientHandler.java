@@ -51,7 +51,8 @@ public class CommandClientHandler {
     @CrossOrigin(origins = "http://localhost:5173")
     @PutMapping("/cancelBooking")
     public void cancelBooking(@RequestBody CancelBooking command) {
-        if (handler.cancelBooking(command)) {
+        boolean isCanceled=handler.cancelBooking(command);
+        if (isCanceled) {
             CancelBookingEvent event = new CancelBookingEvent();
             event.setContent("cancelBooking");
             event.setReservationNumber(command.getReservationNumber());

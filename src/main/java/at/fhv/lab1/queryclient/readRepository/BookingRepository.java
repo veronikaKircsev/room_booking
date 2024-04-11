@@ -27,6 +27,7 @@ public class BookingRepository {
     }
 
     public void delete(Booking room) {
+        System.out.println("Hello");
         bookedRooms.remove(room.getRoomNumber());
     }
 
