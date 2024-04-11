@@ -18,13 +18,14 @@ public class QueryClientController {
 
     @CrossOrigin(origins = "http://localhost:5173")
     @GetMapping(value = "/getBookings")
-    public String getBookings(@RequestParam("start")String start,
-                              @RequestParam("end")String end) {
-        LocalDate dateStart = LocalDate.parse(start, DateTimeFormatter.ofPattern("yyyy.MM.dd"));
-        LocalDate dateEnd = LocalDate.parse(end, DateTimeFormatter.ofPattern("yyyy.MM.dd"));
+    public String getBookings(@RequestParam("start") String start,
+                              @RequestParam("end") String end) {
+        LocalDate dateStart = LocalDate.parse(start, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        LocalDate dateEnd = LocalDate.parse(end, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         System.out.println("Query received: " );
         return projection.getBookings(dateStart, dateEnd);
     }
+
     @CrossOrigin(origins = "http://localhost:5173")
     @GetMapping(value = "/getCustomers/{name}")
     public String getCustomer(@PathVariable("name") String name ){
