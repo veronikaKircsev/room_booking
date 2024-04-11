@@ -79,6 +79,7 @@ public class CommandClientHandler {
         }
 
         if (!handler.existsGuest(command)){
+            System.out.println("Komm ich dahin");
             CreateCustomerEvent event = new CreateCustomerEvent();
             event.setContent("createCustomer");
             event.setName(command.getName());
