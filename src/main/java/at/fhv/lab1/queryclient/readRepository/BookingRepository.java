@@ -23,27 +23,48 @@ public class BookingRepository {
         return rooms;
     }
     public void save(Booking room) {
-        bookedRooms.put(room.getRoomNumber(), room);
+        System.out.println("save ");
+
+        bookedRooms.put(room.getBookingId(), room);
     }
 
     public void delete(Booking room) {
         System.out.println("Hello");
-        bookedRooms.remove(room.getRoomNumber());
+        bookedRooms.remove(room.getBookingId());
+    }
+    public void deleteAll(){
+        bookedRooms.clear();
+        System.out.println(bookedRooms.size() + " books");
     }
 
-    public List<Booking> getBookings(LocalDate start, LocalDate end) {
-        ArrayList<Booking> bookings = new ArrayList<>();
-        for (Booking book : bookedRooms.values()) {
-            if ((book.getStartDate().isAfter(start) && book.getStartDate().isBefore(ChronoLocalDate.from(end))) ||
+    public String getBookings(LocalDate start, LocalDate end) {
+        if (bookedRooms == null){
+            return "nothing there!";
+        } else {
+            ArrayList<Booking> bookings = new ArrayList<>();
+            for (Booking book : bookedRooms.values()) {
+                if ((book.getStartDate().isAfter(start) && book.getStartDate().isBefore(ChronoLocalDate.from(end))) ||
                     (book.getEndDate().isAfter(ChronoLocalDate.from(start)) && book.getEndDate().isBefore(ChronoLocalDate.from(end)))
-            || book.isBooked(start.atStartOfDay()) || book.isBooked(end.atStartOfDay())) {
+                || book.isBooked(start.atStartOfDay()) || book.isBooked(end.atStartOfDay())) {
                 bookings.add(book);
+                }
             }
-        }
-        return bookings;
+
+            StringBuilder sb = new StringBuilder();
+            sb.append("[");
+            for (int i = 0; i < bookings.size(); i++) {
+                    sb.append(bookings.get(i).toString());
+                    if (i < bookings.size() - 1) {
+                        sb.append(", ");
+                    }
+            }
+            sb.append("]");
+            return sb.toString();}
     }
 
     public Booking getBooking(int id){
+        System.out.println(id + "id" + bookedRooms.size());
+        System.out.println(bookedRooms.get(id).toString());
         return bookedRooms.get(id);
     }
 }

@@ -27,14 +27,12 @@ public class CommandHandler {
             guest.setName(bookRoom.getName());
             guest.setAddress(bookRoom.getAddress());
             guest.setBirthDate(bookRoom.getBirthDate());
-        System.out.println(guest);
             Guest guest1 = guestService.createCustomer(guest);
             Reservation booking = reservationService.bookRoom(bookRoom, guest1.getId());
             return booking;
     }
 
     public boolean cancelBooking(CancelBooking cancelBooking) {
-
         return reservationService.cancelBooking(cancelBooking);
     }
 

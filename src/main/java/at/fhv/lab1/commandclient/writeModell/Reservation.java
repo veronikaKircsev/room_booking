@@ -68,7 +68,16 @@ public class Reservation {
     public boolean exists(Object o) {
         if (this == o) return true;
         if (!(o instanceof Reservation that)) return false;
-        return getRoomNumber() == that.getRoomNumber() && getNights() == that.getNights() && getStart().equals(that.getStart());
+        LocalDate startThat = (LocalDate) that.getStart();
+        int nightThat = (int) that.getNights();
+        LocalDate endThat = startThat.plusDays(nightThat);
+        LocalDate end = start.plusDays(nights);
+        boolean booked1 = startThat.isAfter(start) && startThat.isBefore(end);
+        boolean booked2 = endThat.isBefore(end) && endThat.isAfter(end);
+        boolean booked3 = startThat.isBefore(start) && endThat.isAfter(end);
+
+        return getRoomNumber() == that.getRoomNumber() && ((getNights() == that.getNights()
+                && getStart().equals(that.getStart())) || booked1 || booked2 || booked3) ;
     }
 
 

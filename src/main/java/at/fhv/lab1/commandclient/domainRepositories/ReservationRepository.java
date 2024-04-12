@@ -14,7 +14,7 @@ public class ReservationRepository {
 
     public boolean save(Reservation reservation) {
         reservation.setId(++counter);
-        reservationList.put(reservation.getId(), reservation);
+        reservationList.put(counter, reservation);
         return true;
     }
 

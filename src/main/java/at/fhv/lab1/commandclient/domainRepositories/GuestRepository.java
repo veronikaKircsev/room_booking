@@ -14,7 +14,6 @@ public class GuestRepository {
 
     public boolean save(Guest guest) {
         guest.setId(++counter);
-        System.out.println(guest.getId());
         guestList.put(counter, guest);
         return true;
     }

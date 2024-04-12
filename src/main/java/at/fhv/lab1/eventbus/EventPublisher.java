@@ -1,9 +1,6 @@
 package at.fhv.lab1.eventbus;
 
-import at.fhv.lab1.eventbus.events.BookRoomEvent;
-import at.fhv.lab1.eventbus.events.CancelBookingEvent;
-import at.fhv.lab1.eventbus.events.CreateCustomerEvent;
-import at.fhv.lab1.eventbus.events.Event;
+import at.fhv.lab1.eventbus.events.*;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -42,6 +39,18 @@ public class EventPublisher {
         return localApiClient
                 .post()
                 .uri("http://localhost:8083/bookRoomEvent")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .body(Mono.just(event), Event.class)
+                .retrieve()
+                .bodyToMono(Boolean.class)
+                .block();
+    }
+
+    public Boolean publishEvent(DeleteEvents event) {
+        return localApiClient
+                .post()
+                .uri("http://localhost:8083/deleteEvents")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .body(Mono.just(event), Event.class)

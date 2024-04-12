@@ -29,9 +29,12 @@ public class GuestProjection {
         Guest guest = new Guest();
         guest.setName(event.getName());
         guest.setBirthDate(event.getBirthDate());
-        guest.setId(event.getId());
+        guest.setId(event.getCustomerId());
         guest.setAddress(event.getAddress());
         repository.save(guest);
+    }
+    public void delete(){
+        repository.delete();
     }
 
 }

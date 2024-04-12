@@ -3,6 +3,7 @@ package at.fhv.lab1.queryclient;
 import at.fhv.lab1.eventbus.events.BookRoomEvent;
 import at.fhv.lab1.eventbus.events.CancelBookingEvent;
 import at.fhv.lab1.eventbus.events.CreateCustomerEvent;
+import at.fhv.lab1.eventbus.events.DeleteEvents;
 import at.fhv.lab1.queryclient.readModell.AvailableRoom;
 import at.fhv.lab1.queryclient.readRepository.AvailableRoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +44,15 @@ public class QueryClientEventController {
         System.out.println("Event received: " + event);
         return true;
     }
+
+    @PostMapping(value = "/deleteEvents", consumes = "application/json")
+    public boolean addEvent(@RequestBody DeleteEvents event) {
+        projection.handle(event);
+        System.out.println("Event received: " + event);
+        return true;
+    }
+
+
 
     @Bean
     public CommandLineRunner run() throws Exception {

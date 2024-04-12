@@ -3,6 +3,7 @@ package at.fhv.lab1.queryclient;
 import at.fhv.lab1.eventbus.events.BookRoomEvent;
 import at.fhv.lab1.eventbus.events.CancelBookingEvent;
 import at.fhv.lab1.eventbus.events.CreateCustomerEvent;
+import at.fhv.lab1.eventbus.events.DeleteEvents;
 import at.fhv.lab1.queryclient.projection.GuestProjection;
 import at.fhv.lab1.queryclient.projection.RoomProjection;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,12 @@ public class EventProjection {
 
     public void handle(CreateCustomerEvent event) {
         guestProjection.handle(event);
+    }
+
+    public void handle(DeleteEvents event) {
+        guestProjection.delete();
+        roomProjection.delete();
+
     }
 
 }

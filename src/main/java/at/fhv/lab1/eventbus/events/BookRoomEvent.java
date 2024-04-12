@@ -1,7 +1,13 @@
 package at.fhv.lab1.eventbus.events;
 
-import java.time.LocalDate;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.UUID;
+
+@JsonAutoDetect
 public class BookRoomEvent extends Event{
 
     private int bookingID;
@@ -10,6 +16,25 @@ public class BookRoomEvent extends Event{
     private LocalDate startDate;
     private int duration;
     private int totalNumberOfGuest;
+    private String content;
+    private long timestamp;
+
+
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
 
 
     public int getBookingID() {
@@ -60,15 +85,20 @@ public class BookRoomEvent extends Event{
         this.totalNumberOfGuest = totalNumberOfGuest;
     }
 
+
+
     @Override
     public String toString() {
-        return "BookRoomEvent{" +
-                "bookingID=" + bookingID +
-                ", customer='" + customer + '\'' +
-                ", roomNumber=" + roomNumber +
-                ", duration=" + duration +
-                ", id=" + id +
-                ", created=" + created +
-                '}';
+        return
+                "content:\n" + content + "\n" +
+                "timestamp:\n" + timestamp + "\n" +
+                "bookingID\n" + bookingID + "\n" +
+                "customer\n" + customer + "\n" +
+                "roomNumber\n" + roomNumber + "\n" +
+                "duration\n" + duration + "\n" +
+                "id\n" + id + "\n" +
+                "created\n" + created + "\n" +
+                "startDate\n" + startDate + "\n" +
+                "totalNumberOfGuests\n" + totalNumberOfGuest + "\n";
     }
 }

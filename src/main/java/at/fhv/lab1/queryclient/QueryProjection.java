@@ -50,17 +50,7 @@ public class QueryProjection {
 
 
     public String getBookings(LocalDate startDate, LocalDate endDate) {
-        ArrayList<Booking> bookingList = (ArrayList<Booking>) roomProjection.getBooking(startDate, endDate);
-        StringBuilder sb = new StringBuilder();
-        sb.append("[");
-        for (int i = 0; i < bookingList.size(); i++) {
-            sb.append(bookingList.get(i).toString());
-            if (i < bookingList.size() - 1) {
-                sb.append(", ");
-            }
-        }
-        sb.append("]");
-        return sb.toString();
+        return roomProjection.getBooking(startDate, endDate);
 
     }
 

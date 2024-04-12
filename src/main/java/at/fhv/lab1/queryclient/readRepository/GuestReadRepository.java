@@ -33,4 +33,8 @@ public class GuestReadRepository {
         }
         return list;
     }
+
+    public void delete(){
+        guests.clear();
+    }
 }
