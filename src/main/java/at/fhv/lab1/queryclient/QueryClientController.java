@@ -9,10 +9,10 @@ import java.time.format.DateTimeFormatter;
 @RestController
 public class QueryClientController {
 
-    private final QueryProjection projection;
+    private final QueryHandler projection;
 
     @Autowired
-    public QueryClientController(QueryProjection projection) {
+    public QueryClientController(QueryHandler projection) {
         this.projection = projection;
     }
 

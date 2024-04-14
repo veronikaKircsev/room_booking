@@ -12,11 +12,11 @@ import java.util.stream.Stream;
 
 @Component
 public class QueryClientCli implements CommandLineRunner {
-    private final QueryProjection projection;
+    private final QueryHandler projection;
     private final AvailableRoomRepository roomRepository;
 
     @Autowired
-    public QueryClientCli(QueryProjection projection, AvailableRoomRepository roomRepository) {
+    public QueryClientCli(QueryHandler projection, AvailableRoomRepository roomRepository) {
         this.projection = projection;
         this.roomRepository = roomRepository;
     }

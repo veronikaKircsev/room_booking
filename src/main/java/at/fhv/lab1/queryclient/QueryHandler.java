@@ -3,7 +3,6 @@ package at.fhv.lab1.queryclient;
 import at.fhv.lab1.queryclient.projection.GuestProjection;
 import at.fhv.lab1.queryclient.projection.RoomProjection;
 import at.fhv.lab1.queryclient.readModell.AvailableRoom;
-import at.fhv.lab1.queryclient.readModell.Booking;
 import at.fhv.lab1.queryclient.readModell.Guest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,13 +11,13 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 @Service
-public class QueryProjection {
+public class QueryHandler {
 
     GuestProjection guestProjection;
     RoomProjection roomProjection;
 
     @Autowired
-    public QueryProjection(GuestProjection guestProjection, RoomProjection roomProjection){
+    public QueryHandler(GuestProjection guestProjection, RoomProjection roomProjection){
         this.guestProjection = guestProjection;
         this.roomProjection = roomProjection;
     }
