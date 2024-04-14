@@ -1,12 +1,5 @@
 package at.fhv.lab1.eventbus.events;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-
-import java.time.LocalDateTime;
-import java.util.UUID;
-
-@JsonAutoDetect
 public class CancelBookingEvent extends Event{
 
     private String content;

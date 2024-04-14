@@ -1,9 +1,6 @@
 package at.fhv.lab1.eventbus;
 
 import at.fhv.lab1.eventbus.events.*;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.json.JsonMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -28,7 +25,6 @@ public class EventRepository {
 
     public void processEvent(Event event) {
         events.add(event);
-        System.out.println("eventProcess: " + event.toString() + " " + event.getContent());
         switch (event.getContent()) {
             case "createCustomer":
                 CreateCustomerEvent event1 = (CreateCustomerEvent) event;
@@ -47,13 +43,11 @@ public class EventRepository {
                 publisher.publishEvent(event4);
                 saveEvents();
                 events.clear();
-                System.out.println(events.size() + " eventsSize");
                 break;
             default:
                 break;
 
         }
-        System.out.println("Processing Event");
     }
 
     private void saveEvents() {
@@ -130,13 +124,8 @@ public class EventRepository {
                 customerEvent.setTimestamp(Long.parseLong(savedEvents.get(i+14)));
                 customerEvent.setContent("createCustomer");
                 processEvent(customerEvent);
-                System.out.println(customerEvent.toString() + " recreated");
             }
         }
-
-
-            System.out.println(events.size());
-
         }
 
     }

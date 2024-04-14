@@ -23,18 +23,14 @@ public class BookingRepository {
         return rooms;
     }
     public void save(Booking room) {
-        System.out.println("save ");
-
         bookedRooms.put(room.getBookingId(), room);
     }
 
     public void delete(Booking room) {
-        System.out.println("Hello");
         bookedRooms.remove(room.getBookingId());
     }
     public void deleteAll(){
         bookedRooms.clear();
-        System.out.println(bookedRooms.size() + " books");
     }
 
     public String getBookings(LocalDate start, LocalDate end) {

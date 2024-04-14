@@ -1,10 +1,7 @@
 package at.fhv.lab1.eventbus.events;
 
-
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-
 import java.time.LocalDate;
-@JsonAutoDetect
+
 public class CreateCustomerEvent extends Event{
 
     private String name;

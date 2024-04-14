@@ -22,20 +22,17 @@ public class QueryClientController {
                               @RequestParam("end") String end) {
         LocalDate dateStart = LocalDate.parse(start, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         LocalDate dateEnd = LocalDate.parse(end, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        System.out.println("Query received: " );
         return projection.getBookings(dateStart, dateEnd);
     }
 
     @CrossOrigin(origins = "http://localhost:5173")
     @GetMapping(value = "/getCustomers/{name}")
     public String getCustomer(@PathVariable("name") String name ){
-        System.out.println("Query received: ");
         return name!=null ? projection.getGuests(name): projection.getGuests();
     }
     @CrossOrigin(origins = "http://localhost:5173")
     @GetMapping(value = "/getCustomers")
     public String getCustomer(){
-        System.out.println("Query received: ");
         return projection.getGuests();
     }
 
@@ -47,7 +44,6 @@ public class QueryClientController {
                                @RequestParam("withBalcony") boolean withBalcony) {
         LocalDate dateStart = LocalDate.parse(start, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         LocalDate dateEnd = LocalDate.parse(end, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        System.out.println("Query received: ");
         return projection.getFreeRooms(dateStart, dateEnd, numberOfGuest, withBalcony);
     }
 
