@@ -50,7 +50,8 @@ public class QueryProjection {
 
 
     public String getBookings(LocalDate startDate, LocalDate endDate) {
-        return roomProjection.getBooking(startDate, endDate);
+        String message = endDate.isBefore(startDate) ? "Something went wrong" : roomProjection.getBooking(startDate, endDate);
+        return message;
 
     }
 

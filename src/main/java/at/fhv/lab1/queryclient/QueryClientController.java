@@ -44,7 +44,7 @@ public class QueryClientController {
                                @RequestParam("withBalcony") boolean withBalcony) {
         LocalDate dateStart = LocalDate.parse(start, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         LocalDate dateEnd = LocalDate.parse(end, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        return projection.getFreeRooms(dateStart, dateEnd, numberOfGuest, withBalcony);
+        return dateEnd.isBefore(dateStart) ? "Something went wrong" : projection.getFreeRooms(dateStart, dateEnd, numberOfGuest, withBalcony);
     }
 
 }

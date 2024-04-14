@@ -93,7 +93,8 @@ public class QueryClientCli implements CommandLineRunner {
                 LocalDate dateStart = LocalDate.parse(scanner.nextLine());
                 System.out.println("Please enter an end date (1999-09-09)");
                 LocalDate dateEnd = LocalDate.parse(scanner.nextLine());
-                System.out.println("Please enter the guest's number");
+                String message = dateEnd.isBefore(dateStart) ? "wrong period" : "Please enter the guest's number";
+                System.out.println(message);
                 int numberOfGuest = Integer.parseInt(scanner.nextLine());
                 System.out.println("would you like balcony? (y/n)");
                 String answer = scanner.nextLine();
