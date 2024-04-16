@@ -20,8 +20,10 @@ public class GuestService {
 
 
     public Guest createCustomer(CreateCustomer command) {
-        Guest guest = new Guest(command.getName(), command.getAddress(),
-                command.getBirthDate());
+        Guest guest = new Guest();
+        guest.setName(command.getName());
+        guest.setAddress(command.getAddress());
+        guest.setBirthDate(command.getBirthDate());
         if (guestRepository.existsGuest(guest) == null) {
             guestRepository.save(guest);
             return guest;
@@ -30,8 +32,10 @@ public class GuestService {
     }
 
     public boolean isExists(BookRoom command) {
-        Guest guest = new Guest(command.getName(), command.getAddress(),
-                command.getBirthDate());
+        Guest guest = new Guest();
+        guest.setName(command.getName());
+        guest.setAddress(command.getAddress());
+        guest.setBirthDate(command.getBirthDate());
         return guestRepository.existsGuest(guest) == null;
     }
 

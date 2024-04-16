@@ -18,8 +18,11 @@ public class ReservationService {
     }
 
     public Reservation bookRoom(BookRoom command, int customerId) {
-        Reservation reservation = new Reservation(command.getRoomNumber(),
-                customerId, command.getStart(), command.getNights());
+        Reservation reservation = new Reservation();
+        reservation.setRoomNumber(command.getRoomNumber());
+        reservation.setGuestId(customerId);
+        reservation.setStart(command.getStart());
+        reservation.setNights(command.getNights());
             if (!repository.isBooked(reservation)) {
                 repository.save(reservation);
                 return reservation;

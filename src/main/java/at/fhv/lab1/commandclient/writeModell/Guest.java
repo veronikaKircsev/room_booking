@@ -11,11 +11,6 @@ public class Guest {
     private String address;
     private LocalDate birthDate;
 
-    public Guest(String name, String address, LocalDate birthday) {
-        this.name = name;
-        this.address = address;
-        this.birthDate = birthday;
-    }
     public Guest(){
 
     }

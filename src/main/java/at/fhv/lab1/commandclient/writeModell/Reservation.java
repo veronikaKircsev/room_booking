@@ -13,13 +13,6 @@ public class Reservation {
 
 
 
-    public Reservation(int roomNumber, int guestId, LocalDate start, int nights) {
-        this.roomNumber = roomNumber;
-        this.guestId = guestId;
-        this.start = start;
-        this.nights = nights;
-    }
-
     public Reservation() {
     }
 

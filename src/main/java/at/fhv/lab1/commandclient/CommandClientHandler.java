@@ -4,17 +4,12 @@ import at.fhv.lab1.commandclient.command.*;
 import at.fhv.lab1.commandclient.domainRepositories.RoomRepository;
 import at.fhv.lab1.commandclient.writeModell.Guest;
 import at.fhv.lab1.commandclient.writeModell.Reservation;
-import at.fhv.lab1.commandclient.writeModell.Room;
 import at.fhv.lab1.eventbus.events.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.Scanner;
-import java.util.stream.Stream;
 
 
 @RestController

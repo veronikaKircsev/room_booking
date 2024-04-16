@@ -16,7 +16,7 @@ public class AvailableRoomRepository {
     public ArrayList<AvailableRoom> getFreeRooms(LocalDate start, LocalDate end, Integer guestNumber, boolean withBalkony) {
         ArrayList<AvailableRoom> freeRoomNumbers = new ArrayList<>();
         for (AvailableRoom room : rooms.values()) {
-            if (room.isAvailable(start, end) && room.isWithBalcony() &&room.getMaxCapacity() >= guestNumber) {
+            if (room.isAvailable(start, end) && room.isWithBalcony() == withBalkony && room.getMaxCapacity() >= guestNumber) {
                 freeRoomNumbers.add(room);
             }
 

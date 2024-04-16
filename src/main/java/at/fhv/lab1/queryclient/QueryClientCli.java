@@ -75,11 +75,15 @@ public class QueryClientCli implements CommandLineRunner {
                 break;
             }
             if (line.equalsIgnoreCase("GetBookings")){
-                System.out.println("Please enter a start date (1999-09-09)");
-                LocalDate dateStart = LocalDate.parse(scanner.nextLine());
-                System.out.println("Please enter an end date (1999-09-09)");
-                LocalDate dateEnd = LocalDate.parse(scanner.nextLine());
-                System.out.println(projection.getBookings(dateStart, dateEnd));
+                try {
+                    System.out.println("Please enter a start date (1999-09-09)");
+                    LocalDate dateStart = LocalDate.parse(scanner.nextLine());
+                    System.out.println("Please enter an end date (1999-09-09)");
+                    LocalDate dateEnd = LocalDate.parse(scanner.nextLine());
+                    System.out.println(projection.getBookings(dateStart, dateEnd));
+                } catch (Exception e){
+                    System.out.println("Something went wrong");
+                }
                 System.out.print("Please enter a query: GetBookings, GetCustomers, GetFreeRooms\n");
             }
             if (line.equalsIgnoreCase("GetCustomers")){
@@ -89,17 +93,21 @@ public class QueryClientCli implements CommandLineRunner {
                 System.out.print("Please enter a query: GetBookings, GetCustomers, GetFreeRooms\n");
             }
             if (line.equalsIgnoreCase("GetFreeRooms")){
-                System.out.println("Please enter a start date (1999-09-09)");
-                LocalDate dateStart = LocalDate.parse(scanner.nextLine());
-                System.out.println("Please enter an end date (1999-09-09)");
-                LocalDate dateEnd = LocalDate.parse(scanner.nextLine());
-                String message = dateEnd.isBefore(dateStart) ? "wrong period" : "Please enter the guest's number";
-                System.out.println(message);
-                int numberOfGuest = Integer.parseInt(scanner.nextLine());
-                System.out.println("would you like balcony? (y/n)");
-                String answer = scanner.nextLine();
-                boolean withBalcony = answer.equals("y") ? true : false;
-                System.out.println(projection.getFreeRooms(dateStart, dateEnd, numberOfGuest, withBalcony));
+                try {
+                    System.out.println("Please enter a start date (1999-09-09)");
+                    LocalDate dateStart = LocalDate.parse(scanner.nextLine());
+                    System.out.println("Please enter an end date (1999-09-09)");
+                    LocalDate dateEnd = LocalDate.parse(scanner.nextLine());
+                    String message = dateEnd.isBefore(dateStart) ? "wrong period" : "Please enter the guest's number";
+                    System.out.println(message);
+                    int numberOfGuest = Integer.parseInt(scanner.nextLine());
+                    System.out.println("would you like balcony? (y/n)");
+                    String answer = scanner.nextLine();
+                    boolean withBalcony = answer.equals("y") ? true : false;
+                    System.out.println(projection.getFreeRooms(dateStart, dateEnd, numberOfGuest, withBalcony));
+                } catch (Exception e) {
+                    System.out.println("Something went wrong");
+                }
                 System.out.print("Please enter a query: GetBookings, GetCustomers, GetFreeRooms\n");
             }
         }

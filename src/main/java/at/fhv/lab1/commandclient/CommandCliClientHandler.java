@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.Scanner;
 import java.util.stream.Stream;
@@ -103,86 +104,101 @@ public class CommandCliClientHandler implements CommandLineRunner {
             }
 
             if (line.equals("BookRoom")){
-                BookRoom command = new BookRoom();
-                System.out.println("Please enter a room number");
-                command.setRoomNumber(Integer.parseInt(scanner.nextLine()));
-                System.out.println("Please enter the starting date (1999-09-09)");
-                command.setStart(LocalDate.parse(scanner.nextLine()));
-                System.out.println("Please enter nights");
-                command.setNights(Integer.parseInt(scanner.nextLine()));
-                System.out.println("Please enter the guest's number");
-                command.setNumberOfGuests(Integer.parseInt(scanner.nextLine()));
-                System.out.println("Please enter the guest's name");
-                command.setName(scanner.nextLine());
-                System.out.println("Please enter the guest's address");
-                command.setAddress(scanner.nextLine());
-                System.out.println("Please enter the guest's birth date (age must be 18+)");
-                command.setBirthDate(LocalDate.parse(scanner.nextLine()));
-                if (command.getNumberOfGuests() <= roomRepository.getRoomByNumber(command.getRoomNumber()).getMaxGuestCapacity()) {
-                    Reservation result = handler.bookRoom(command);
-                    if (result != null) {
-                        BookRoomEvent event = new BookRoomEvent();
-                        event.setContent("bookRoom");
-                        event.setBookingID(result.getId());
-                        event.setCustomer(command.getName() + " " + command.getAddress() + " " + command.getBirthDate());
-                        event.setRoomNumber(command.getRoomNumber());
-                        event.setDuration(command.getNights());
-                        event.setStartDate(command.getStart());
-                        event.setTotalNumberOfGuest(command.getNumberOfGuests());
-                        event.setRoomNumber(command.getRoomNumber());
+                try {
+                    BookRoom command = new BookRoom();
+                    System.out.println("Please enter a room number (1-40)");
+                    int room = Integer.parseInt(scanner.nextLine());
+                    command.setRoomNumber(room);
+                    int capacity = roomRepository.getRoomByNumber(room).getMaxGuestCapacity();
+                    System.out.println("Please enter the starting date (1999-09-09)");
+                    command.setStart(LocalDate.parse(scanner.nextLine()));
+                    System.out.println("Please enter nights");
+                    command.setNights(Integer.parseInt(scanner.nextLine()));
+                    System.out.println("Please enter the guest's number maximum: " + capacity);
+                    command.setNumberOfGuests(Integer.parseInt(scanner.nextLine()));
+                    System.out.println("Please enter the guest's name");
+                    command.setName(scanner.nextLine());
+                    System.out.println("Please enter the guest's address");
+                    command.setAddress(scanner.nextLine());
+                    System.out.println("Please enter the guest's birth date (age must be 18+ in 1999-09-09 format)");
+                    command.setBirthDate(LocalDate.parse(scanner.nextLine()));
+
+                    if (command.getNumberOfGuests() <= roomRepository.getRoomByNumber(command.getRoomNumber()).getMaxGuestCapacity()) {
+                        Reservation result = handler.bookRoom(command);
+                        if (result != null) {
+                            BookRoomEvent event = new BookRoomEvent();
+                            event.setContent("bookRoom");
+                            event.setBookingID(result.getId());
+                            event.setCustomer(command.getName() + " " + command.getAddress() + " " + command.getBirthDate());
+                            event.setRoomNumber(command.getRoomNumber());
+                            event.setDuration(command.getNights());
+                            event.setStartDate(command.getStart());
+                            event.setTotalNumberOfGuest(command.getNumberOfGuests());
+                            event.setRoomNumber(command.getRoomNumber());
+                            event.setTimestamp(System.currentTimeMillis());
+                            publisher.publishEvent(event);
+                            System.out.println("succeed");
+                        }
+                        if (!handler.existsGuest(command)) {
+                            CreateCustomerEvent event = new CreateCustomerEvent();
+                            event.setContent("createCustomer");
+                            event.setName(command.getName());
+                            event.setAddress(command.getAddress());
+                            event.setBirthDate(command.getBirthDate());
+                            event.setCustomerId(result.getGuestId());
+                            event.setTimestamp(System.currentTimeMillis());
+                            publisher.publishEvent(event);
+                        }
+                    }
+                } catch ( Exception e ) {
+                        System.out.println("Something went wrong");
+                    }
+                    System.out.print("Please enter a command: DeleteEvents, RestoreEvents, BookRoom, CancelBooking, CreateCustomer\n");
+            }
+
+            if (line.equalsIgnoreCase("CancelBooking")){
+                try {
+                    CancelBooking command = new CancelBooking();
+                    System.out.println("Please enter the booking number");
+                    command.setReservationNumber(Integer.parseInt(scanner.nextLine()));
+                    boolean isCanceled = handler.cancelBooking(command);
+                    if (isCanceled) {
+                        CancelBookingEvent event = new CancelBookingEvent();
+                        event.setContent("cancelBooking");
+                        event.setReservationNumber(command.getReservationNumber());
                         event.setTimestamp(System.currentTimeMillis());
                         publisher.publishEvent(event);
                         System.out.println("succeed");
                     }
-                    if (!handler.existsGuest(command)) {
-                        CreateCustomerEvent event = new CreateCustomerEvent();
-                        event.setContent("createCustomer");
-                        event.setName(command.getName());
-                        event.setAddress(command.getAddress());
-                        event.setBirthDate(command.getBirthDate());
-                        event.setCustomerId(result.getGuestId());
-                        event.setTimestamp(System.currentTimeMillis());
-                        publisher.publishEvent(event);
-                    }
-                    System.out.print("Please enter a command: DeleteEvents, RestoreEvents, BookRoom, CancelBooking, CreateCustomer\n");
-                }
-            }
-
-            if (line.equalsIgnoreCase("CancelBooking")){
-                CancelBooking command = new CancelBooking();
-                System.out.println("Please enter the booking number");
-                command.setReservationNumber(Integer.parseInt(scanner.nextLine()));
-                boolean isCanceled=handler.cancelBooking(command);
-                if (isCanceled) {
-                    CancelBookingEvent event = new CancelBookingEvent();
-                    event.setContent("cancelBooking");
-                    event.setReservationNumber(command.getReservationNumber());
-                    event.setTimestamp(System.currentTimeMillis());
-                    publisher.publishEvent(event);
-                System.out.println("succeed");
+                } catch (Exception e) {
+                    System.out.println("Something went wrong");
                 }
                 System.out.print("Please enter a command: DeleteEvents, RestoreEvents, BookRoom, CancelBooking, CreateCustomer\n");
             }
 
             if (line.equalsIgnoreCase("CreateCustomer")){
-                CreateCustomer command = new CreateCustomer();
-                System.out.println("Please enter name");
-                command.setName(scanner.nextLine());
-                System.out.println("Please enter address");
-                command.setAddress(scanner.nextLine());
-                System.out.println("Please enter birthday (1999-09-09) (age must be 18+)");
-                command.setBirthDate(LocalDate.parse(scanner.nextLine()));
-                Guest guest = handler.createCustomer(command);
-                if (guest!=null) {
-                    CreateCustomerEvent event = new CreateCustomerEvent();
-                    event.setContent("createCustomer");
-                    event.setName(command.getName());
-                    event.setAddress(command.getAddress());
-                    event.setBirthDate(command.getBirthDate());
-                    event.setCustomerId(guest.getId());
-                    event.setTimestamp(System.currentTimeMillis());
-                    publisher.publishEvent(event);
-                    System.out.println("succeed");
+                try {
+                    CreateCustomer command = new CreateCustomer();
+                    System.out.println("Please enter name");
+                    command.setName(scanner.nextLine());
+                    System.out.println("Please enter address");
+                    command.setAddress(scanner.nextLine());
+                    System.out.println("Please enter birthday (1999-09-09) (age must be 18+)");
+                    command.setBirthDate(LocalDate.parse(scanner.nextLine()));
+                    Guest guest = handler.createCustomer(command);
+                    if (guest != null) {
+                        CreateCustomerEvent event = new CreateCustomerEvent();
+                        event.setContent("createCustomer");
+                        event.setName(command.getName());
+                        event.setAddress(command.getAddress());
+                        event.setBirthDate(command.getBirthDate());
+                        event.setCustomerId(guest.getId());
+                        event.setTimestamp(System.currentTimeMillis());
+                        publisher.publishEvent(event);
+                        System.out.println("succeed");
+                    }
+                } catch (Exception e){
+                    System.out.println("Something went wrong");
                 }
                     System.out.print("Please enter a command: DeleteEvents, RestoreEvents, BookRoom, CancelBooking, CreateCustomer\n");
             }
